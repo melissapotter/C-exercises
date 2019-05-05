@@ -29,3 +29,4 @@ int get_positive_int(string prompt)
     while (n < 1 || n > 8); // || is to include both requirements for this line
     return n; //redisplay question if it doesn't meet requirements
 }
+

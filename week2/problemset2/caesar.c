@@ -6,7 +6,7 @@
 int main(int argc, string argv[])
 
 {
-    if (argc > 1) //if an input is entered after command line
+    if (argc > 1 ) //if an input is entered after command line
         for (int i = 1; i < argc; i++)
 // for every word while skipping the first word, keeping it less than 2 words .. iterate over each word
         {
@@ -21,23 +21,30 @@ int main(int argc, string argv[])
             }
             int key = atoi(argv[1]);
             string plaintext = get_string("plaintext: ");
+            char ciphertext;
             printf("ciphertext: ");
             if (strlen(plaintext) > 0)
 //if an input is entered after command line
                 for (int c = 0; c < strlen(plaintext); c++)
 // for every word, keeping it less than the number of input words .. iterate over each word
                 {
-                    char text = (plaintext[c]);
-                    if (isupper(text))
+
+                    if (isupper(plaintext[c]))
                     {
-                        printf("%c", ((((plaintext[c] + key) - 65) % 26) + 65));
+                        ciphertext = ((((plaintext[c] + key) - 65) % 26) + 65);
                     }
-                    else if (islower(text))
+                    if (islower(plaintext[c]))
                     {
-                        printf("%c", ((((plaintext[c] + key) - 97) % 26) + 97));
+                        ciphertext = ((((plaintext[c] + key) - 97) % 26) + 97);
                     }
+                    else if(isalpha(plaintext[c]) == false)
+                    {
+                        ciphertext = plaintext[c];
+                    }
+                    printf("%c", ciphertext);
 
                 }
+
             printf("\n");
         }
     else

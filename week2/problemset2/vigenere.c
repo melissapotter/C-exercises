@@ -19,19 +19,21 @@ int main(int argc, string argv[])
             string plaintext = get_string("plaintext: ");
             char ciphertext;
             printf("ciphertext: ");
+            int keylength = strlen(argv[1]);
             if (strlen(plaintext) > 0)
 //if an input is entered after command line
                 for (int c = 0; c < strlen(plaintext); c++)
 
 // for every word, keeping it less than the number of input letters .. iterate over each letter
                 {
+                    int jackpot = c % keylength;
                     if (isupper(plaintext[c]))
                     {
-                        ciphertext = ((((plaintext[c] + (shift(argv[1][c])) - 65) % 26) + 65));
+                        ciphertext = ((((plaintext[c] + (shift(argv[1][jackpot])) - 65) % 26) + 65));
                     }
                     if (islower(plaintext[c]))
                     {
-                        ciphertext = ((((plaintext[c] + (shift(argv[1][c])) - 97) % 26) + 97));
+                        ciphertext = ((((plaintext[c] + (shift(argv[1][jackpot])) - 97) % 26) + 97));
                     }
                     else if (isalpha(plaintext[c]) == false)
                     {

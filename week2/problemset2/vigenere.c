@@ -35,7 +35,7 @@ int main(int argc, string argv[])
                     {
                         ciphertext = ((((plaintext[c] + (shift(argv[1][jackpot])) - 97) % 26) + 97));
                     }
-                    else if (isalpha(plaintext[c]) == false)
+                    else if (isalpha(plaintext[c])) == false)
                     {
                         ciphertext = (plaintext[c]);
                     }

@@ -26,12 +26,12 @@ BITMAPFILEHEADER;
 typedef struct
 {
     DWORD biSize;
-    LONG biWidth;
-    LONG biHeight;
+    LONG biWidth; // width
+    LONG biHeight; // height
     WORD biPlanes;
     WORD biBitCount;
     DWORD biCompression;
-    DWORD biSizeImage;
+    DWORD biSizeImage; //using
     LONG biXPelsPerMeter;
     LONG biYPelsPerMeter;
     DWORD biClrUsed;

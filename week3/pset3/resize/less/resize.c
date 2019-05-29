@@ -8,15 +8,18 @@
 int main(int argc, char *argv[])
 {
     // ensure proper usage
-    if (argc != 3)
+    if (argc != 4)
     {
         fprintf(stderr, "Usage: copy infile outfile\n");
         return 1;
     }
 
     // remember filenames
-    char *infile = argv[1];
-    char *outfile = argv[2];
+    int n = atoi(argv[1]);
+    char *infile = argv[2];
+    char *outfile = argv[3];
+
+    printf("you printed %d\n", n);
 
     // open input file
     FILE *inptr = fopen(infile, "r");
@@ -36,12 +39,29 @@ int main(int argc, char *argv[])
     }
 
     // read infile's BITMAPFILEHEADER
-    BITMAPFILEHEADER bf;
+    BITMAPFILEHEADER bf; // states what type of file it is (jpeg)
     fread(&bf, sizeof(BITMAPFILEHEADER), 1, inptr);
 
     // read infile's BITMAPINFOHEADER
     BITMAPINFOHEADER bi;
     fread(&bi, sizeof(BITMAPINFOHEADER), 1, inptr);
+
+    printf("bi width %i\n", bi.biWidth *= n);
+    printf("bi height %i\n", abs(bi.biHeight *= n)); // pixel based
+    int sizeByte = (bi.biSizeImage *= n);
+    if ((sizeByte % 4) == 0)
+    {
+        printf("bisizeimage %i\n", bi.biSizeImage *= n);
+    }
+    else
+    {
+        // if its not divisible by 4, add 1 until it is divisible by 4
+    }
+    // byte based (pixels * 3) includes pixels and padding.. make sure bytes are divisible by 4
+    // store in varible to do the math
+
+
+    // printf("%i\n", bi.biWidth);
 
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
     if (bf.bfType != 0x4d42 || bf.bfOffBits != 54 || bi.biSize != 40 ||

@@ -51,17 +51,25 @@ int main(int argc, char *argv[])
     int sizeByte = (bi.biSizeImage *= n);
     if ((sizeByte % 4) == 0)
     {
-        printf("bisizeimage %i\n", bi.biSizeImage *= n);
+        printf("bisizeimage %i\n", sizeByte);
     }
     else
     {
+        do {
+        printf("value of a: %i\n", sizeByte);
+        sizeByte = sizeByte + 1;
+        }
+        while((sizeByte % 4) != 0);
+
         // if its not divisible by 4, add 1 until it is divisible by 4
     }
     // byte based (pixels * 3) includes pixels and padding.. make sure bytes are divisible by 4
     // store in varible to do the math
+    bf.bfSize = sizeByte +
+    sizeof(BITMAPFILEHEADER) +
+    sizeof(BITMAPINFOHEADER);
 
-
-    // printf("%i\n", bi.biWidth);
+    printf("bfSize %i sizeofBITMAPFILEHEADER: %lu sizeofBITMAPINFOHEADER: %lu \n", bf.bfSize, sizeof(BITMAPFILEHEADER), sizeof(BITMAPINFOHEADER)  );
 
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
     if (bf.bfType != 0x4d42 || bf.bfOffBits != 54 || bi.biSize != 40 ||

@@ -97,6 +97,10 @@ int doesContain(int value)
     //search the tree
     // return 0 if value is not in the tree
     // return 1 if value does not exist in the tree
+    if (rootNode->value == value)
+    {
+        return 1;
+    }
     return 0;
 }
 

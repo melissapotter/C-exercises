@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 //minichallenge create the NODE for a binary tree.
-
 #define true 1
 #define false 0
 
@@ -29,15 +28,15 @@ void addNode(int value)
         return;
     }
 
-    // if value of new node is less than the root node attach to low
-    // else add to high
+    // if value of new node is less the root node attach to low
+    // else add to high.
     NODE *trav = rootNode;
     // printf("trying to add node %i\n", newNode->value);
     while(1)
     {
         if (newNode->value < trav->value)
         {
-            if(trav->low == NULL)
+            if (trav->low == NULL)
             {
                 // printf("found empty spot\n");
                 trav->low = newNode;
@@ -45,11 +44,11 @@ void addNode(int value)
             }
             // printf("found a low node valued: %i moving to it\n", trav->low->value);
             trav = trav->low;
-            continue; // restarts while loop
+            continue;
         }
         else
         {
-            if(trav->high == NULL)
+            if (trav->high == NULL)
             {
                 // printf("found empty spot\n");
                 trav->high = newNode;
@@ -64,91 +63,82 @@ void addNode(int value)
 
 void displayTreeOnEnter(NODE *curNode)
 {
-    printf("%i, ", curNode->value);
+    printf("%i ", curNode->value);
 
-    if(curNode->low)
+    if (curNode->low)
     {
-       displayTreeOnEnter(curNode->low);
+        displayTreeOnEnter(curNode->low);
     }
+
     if (curNode->high)
     {
-    displayTreeOnEnter(curNode->high);
+        displayTreeOnEnter(curNode->high);
     }
 }
 
 void displayTreeOnDeparture(NODE *curNode)
 {
+    //4 7 6 5 9 8 13 18 20 17 15 10
 
-    if(curNode->low)
+    if (curNode->low)
     {
-       displayTreeOnDeparture(curNode->low);
+        displayTreeOnEnter(curNode->low);
     }
 
     if (curNode->high)
     {
-    displayTreeOnDeparture(curNode->high);
+        displayTreeOnEnter(curNode->high);
     }
-    printf("%i, ", curNode->value);
 
-    // 4 7 6 5 9 8 13 18 20 17 15 10
+    printf("%i ", curNode->value);
 }
 
 int doesContain(int value)
 {
-    //search the tree
-    // return 0 if value is not in the tree
-    // return 1 if value does not exist in the tree
-    // if (rootNode->value == value)
-    // {
-    //     return 1;
-    // }
     NODE *trav = rootNode;
     while(1)
     {
-        if (trav->value == value)
+        if(trav->value == value)
         {
             return 1;
         }
         if (value < trav->value)
         {
-            if(trav->low == NULL)
+            if (trav->low == NULL)
             {
                 return 0;
             }
             trav = trav->low;
             continue;
         }
-
-        if (!trav->high)
+        if (value > trav->value)
         {
-            return 0;
+            if ( trav->high == NULL)
+            {
+                return 0;
+            }
+            trav = trav->high;
+            continue;
         }
-        trav = trav->high;
-        continue;
+    }
+}
 
+void freeTree(NODE *curNode) {
+    if (curNode->low)
+    {
+        freeTree(curNode->low);
     }
 
+    if (curNode->high)
+    {
+        freeTree(curNode->high);
+    }
 
-
+    free(curNode);
 }
 
-void tests()
+void populateTree()
 {
-
-   assert(doesContain(10) && "tree does contain 10");
-    assert(doesContain(8) && "tree does contain 8");
-    assert(doesContain(4) && "tree does contain 4");
-    assert(!doesContain(1) && "tree does not contain 1");
-    assert(doesContain(15) && "tree does contain 15");
-    assert(!doesContain(100) && "tree does not contain 100");
-    assert(doesContain(13) && "tree does not contain 13");
-    assert(doesContain(7) && "tree does not contain 7");
-    assert(!doesContain(16) && "tree does not contain 16");
-}
-
-int main(void)
-{
-    printf("hello\n");
     addNode(10);
     addNode(8);
     addNode(15);
@@ -161,10 +151,34 @@ int main(void)
     addNode(4);
     addNode(13);
     addNode(7);
+}
 
-    tests();
+void tests()
+{
+    populateTree();
+    assert(doesContain(10) && "Tree Contains the number 10");
+    assert(doesContain(8) && "Tree contains the number 8");
+    assert(doesContain(15) && "Tree contains the number 15");
+    assert(doesContain(5) && "Tree contains the number 5");
+    assert(!doesContain(3) && "Tree does not contain 3");
+    assert(doesContain(17) && "Tree does contain the number 17");
+    assert(!doesContain(21) && "Tree does no contain 21");
+    assert(doesContain(13) && "tree does contain the number 13");
+    assert(doesContain(9) && "tree does contain the number 9");
+    assert(!doesContain(16) && "tree does not contain the number 16");
+}
+
+int main(void)
+{
+    printf("hello\n");
+    populateTree();
 
     displayTreeOnEnter(rootNode);
-    // displayTreeOnDeparture(rootNode);
     printf("\n");
+
+    freeTree(rootNode);
+
+    // tests();
+    // printf("%i\t%i\n", rootNode->low->value, rootNode->high->value);
+
 }

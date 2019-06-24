@@ -15,6 +15,12 @@ typedef struct NODE
 
 NODE *rootNode;
 
+typedef struct QNODE
+{
+    NODE *value;
+    struct QNODE *next;
+} QNODE;
+
 void addNode(int value)
 {
     NODE *newNode = malloc(sizeof(NODE));
@@ -180,5 +186,6 @@ int main(void)
 
     // tests();
     // printf("%i\t%i\n", rootNode->low->value, rootNode->high->value);
+    //adding to binary tree, create queue node
 
 }

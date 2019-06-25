@@ -13,13 +13,13 @@ typedef struct NODE
     struct NODE *high;
 } NODE;
 
-NODE *rootNode;
-
 typedef struct QNODE
 {
-    NODE *value;
+    NODE *node
     struct QNODE *next;
-} QNODE;
+}
+
+NODE *rootNode;
 
 void addNode(int value)
 {

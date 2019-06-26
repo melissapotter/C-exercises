@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// //minichallenge create the NODE for a binary tree.
-// #define true 1
-// #define false 0
 
 typedef struct NODE
 {
@@ -15,7 +12,7 @@ typedef struct NODE
 
 typedef struct QNODE
 {
-    NODE *node
+    NODE *node;
     struct QNODE *next;
 } QNODE;
 
@@ -187,10 +184,38 @@ int main(void)
     displayTreeOnEnter(rootNode);
     printf("\n");
 
+    push(rootNode);
+    push(rootNode->low);
+    push(rootNode->high);
     freeTree(rootNode);
 
     // tests();
     // printf("%i\t%i\n", rootNode->low->value, rootNode->high->value);
     //adding to binary tree, create queue node
 
+}
+
+void push (NODE* address)
+{
+    QNODE *newQNode = malloc(sizeof(QNODE));
+    newQNode->node = address;
+    newQNode->next = NULL;
+    if (headNode == NULL)
+    {
+        headNode = newQNode;
+        return;
+    }
+    QNODE *trav = headNode;
+    while(trav->next != NULL)
+    {
+        trav = trav->next;
+    }
+
+    trav->next = newQNode;
+}
+
+NODE* pop()
+{
+    //return the address of a bi-NODE
+    // reassign the headNode
 }

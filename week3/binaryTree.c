@@ -187,6 +187,8 @@ int main(void)
     push(rootNode);
     push(rootNode->low);
     push(rootNode->high);
+    printf("%i\n", pop()->value);
+    printf("%i\n", pop()->value);
     freeTree(rootNode);
 
     // tests();
@@ -220,7 +222,9 @@ NODE* pop()
     // reassign the headNode
     //return the address of headNode
 
-    QNODE *temp = headNode;
-    headNode = temp->next;
-    return temp->node;
+    NODE *temp = headNode->node;
+    QNODE *qTemp = headNode;
+    headNode = qTemp->next;
+    free(qTemp);
+    return temp;
 }

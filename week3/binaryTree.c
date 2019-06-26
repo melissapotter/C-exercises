@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//minichallenge create the NODE for a binary tree.
-#define true 1
-#define false 0
+// //minichallenge create the NODE for a binary tree.
+// #define true 1
+// #define false 0
 
 typedef struct NODE
 {
@@ -17,9 +17,14 @@ typedef struct QNODE
 {
     NODE *node
     struct QNODE *next;
-}
+} QNODE;
 
 NODE *rootNode;
+QNODE *headNode;
+
+// functiomn declarations
+NODE* pop();
+void push(NODE*);
 
 void addNode(int value)
 {

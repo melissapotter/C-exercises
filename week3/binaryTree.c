@@ -216,6 +216,11 @@ void push (NODE* address)
 
 NODE* pop()
 {
-    //return the address of a bi-NODE
+    // temp store the headNode
     // reassign the headNode
+    //return the address of headNode
+
+    QNODE *temp = headNode;
+    headNode = temp->next;
+    return temp->node;
 }

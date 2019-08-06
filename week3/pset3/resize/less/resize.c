@@ -55,21 +55,21 @@ int main(int argc, char *argv[])
     }
     else
     {
-        do {
-        printf("value of a: %i\n", sizeByte);
-        sizeByte = sizeByte + 1;
-        }
-        while((sizeByte % 4) != 0);
+        do
+        {
+            printf("value of a: %i\n", sizeByte);
+            sizeByte = sizeByte + 1;
+        } while ((sizeByte % 4) != 0);
 
         // if its not divisible by 4, add 1 until it is divisible by 4
     }
     // byte based (pixels * 3) includes pixels and padding.. make sure bytes are divisible by 4
     // store in varible to do the math
     bf.bfSize = sizeByte +
-    sizeof(BITMAPFILEHEADER) +
-    sizeof(BITMAPINFOHEADER);
+                sizeof(BITMAPFILEHEADER) +
+                sizeof(BITMAPINFOHEADER);
 
-    printf("bfSize %i sizeofBITMAPFILEHEADER: %lu sizeofBITMAPINFOHEADER: %lu \n", bf.bfSize, sizeof(BITMAPFILEHEADER), sizeof(BITMAPINFOHEADER)  );
+    printf("bfSize %i sizeofBITMAPFILEHEADER: %lu sizeofBITMAPINFOHEADER: %lu \n", bf.bfSize, sizeof(BITMAPFILEHEADER), sizeof(BITMAPINFOHEADER));
 
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
     if (bf.bfType != 0x4d42 || bf.bfOffBits != 54 || bi.biSize != 40 ||
@@ -102,8 +102,11 @@ int main(int argc, char *argv[])
             // read RGB triple from infile
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
 
-            // write RGB triple to outfile
-            fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
+            // write RGB triple to outfile n times
+            for (int resize = 0; resize < n; resize++)
+            {
+                fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
+            }
         }
 
         // skip over padding, if any
